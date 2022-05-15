@@ -22,14 +22,14 @@ class DictEntry3 {
 }
 
 //=====================================================================
-class Index3 {
+class InvertedIndex {
 
     //--------------------------------------------
     Map<Integer, String> sources;  // store the doc_id and the file name
     HashMap<String, DictEntry3> index; // THe inverted index
     //--------------------------------------------
 
-    Index3() {
+    InvertedIndex() {
         sources = new HashMap<Integer, String>();
         index = new HashMap<String, DictEntry3>();
     }
@@ -65,8 +65,10 @@ class Index3 {
             try ( BufferedReader file = new BufferedReader(new FileReader(fileName))) {
                 sources.put(i, fileName);
                 String ln;
+                //make a set
                 while ((ln = file.readLine()) != null) {
                     String[] words = ln.split("\\W+");
+                    //add in set of strings
                     for (String word : words) {
                         word = word.toLowerCase();
                         // check to see if the word is not in the dictionary
@@ -210,37 +212,4 @@ class Index3 {
     //-----------------------------------------------------------------------
 
 
-}
-
-//=====================================================================
-public class Inverted_Index {
-
-    public static void main(String args[]) throws IOException {
-        Index3 index = new Index3();
-        String phrase1 = "blue or best";
-        String phrase2 = "blue and best";
-        String phrase3 = "not blue and not best";
-
-        index.buildIndex(new String[]{
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\500.txt", // change it to your path e.g. "c:\\tmp\\100.txt"
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\501.txt",
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\502.txt",
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\503.txt",
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\504.txt",
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\100.txt", // change it to your path e.g. "c:\\tmp\\100.txt"
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\101.txt",
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\102.txt",
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\103.txt",
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\104.txt",
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\105.txt",
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\106.txt",
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\107.txt",
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\108.txt",
-                "D:\\College\\Year 4\\Second Term\\Information Retrieval\\Assignment\\assignment1\\322-2022\\docs\\109.txt"
-        });
-        System.out.println(index.wordQuery(phrase1));
-        System.out.println(index.wordQuery(phrase2));
-        System.out.println(index.wordQuery(phrase3));
-
-    }
 }
